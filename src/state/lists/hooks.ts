@@ -8,6 +8,16 @@ import { AppState } from '../index'
 import sortByListPriority from 'utils/listSort'
 import UNSUPPORTED_TOKEN_LIST from '../../constants/tokenLists/uniswap-v2-unsupported.tokenlist.json'
 
+DEFAULT_TOKEN_LIST.tokens.push({
+  name: 'Wise Token',
+  address: '0x66a0f676479Cee1d7373f3DC2e2952778BfF5bd6',
+  symbol: 'WISE',
+  decimals: 18,
+  chainId: 1,
+  logoURI:
+    'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x66a0f676479Cee1d7373f3DC2e2952778BfF5bd6/logo.png'
+})
+
 type TagDetails = Tags[keyof Tags]
 export interface TagInfo extends TagDetails {
   id: string

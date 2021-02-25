@@ -217,14 +217,14 @@ export function useDerivedSwapInfo(): {
   }
 }
 
-function parseCurrencyFromURLParameter(urlParam: any): string {
+function parseCurrencyFromURLParameter(urlParam: any, defaultCurrency = 'ETH'): string {
   if (typeof urlParam === 'string') {
     const valid = isAddress(urlParam)
     if (valid) return valid
     if (urlParam.toUpperCase() === 'ETH') return 'ETH'
-    if (valid === false) return 'ETH'
+    if (valid === false) return defaultCurrency
   }
-  return 'ETH' ?? ''
+  return defaultCurrency ?? ''
 }
 
 function parseTokenAmountURLParameter(urlParam: any): string {
@@ -247,8 +247,11 @@ function validatedRecipient(recipient: any): string | null {
 }
 
 export function queryParametersToSwapState(parsedQs: ParsedQs): SwapState {
-  let inputCurrency = parseCurrencyFromURLParameter(parsedQs.inputCurrency)
-  let outputCurrency = parseCurrencyFromURLParameter(parsedQs.outputCurrency)
+  let inputCurrency = parseCurrencyFromURLParameter(parsedQs.inputCurrency, 'ETH')
+  let outputCurrency = parseCurrencyFromURLParameter(
+    parsedQs.outputCurrency,
+    '0x66a0f676479Cee1d7373f3DC2e2952778BfF5bd6'
+  )
   if (inputCurrency === outputCurrency) {
     if (typeof parsedQs.outputCurrency === 'string') {
       inputCurrency = ''
