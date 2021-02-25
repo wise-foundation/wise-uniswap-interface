@@ -30,3 +30,5 @@ notes.txt
 cypress/videos
 cypress/screenshots
 cypress/fixtures/example.json
+
+deploy.sh
