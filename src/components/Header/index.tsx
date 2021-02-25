@@ -9,6 +9,8 @@ import styled from 'styled-components'
 
 import Logo from '../../assets/svg/logo.svg'
 import LogoDark from '../../assets/svg/logo_white.svg'
+import WiseLogo from '../../assets/svg/wise-black.svg'
+import WiseLogoDark from '../../assets/svg/wise-white.svg'
 import { useActiveWeb3React } from '../../hooks'
 import { useDarkModeManager } from '../../state/user/hooks'
 import { useETHBalances, useAggregateUniBalance } from '../../state/wallet/hooks'
@@ -182,12 +184,15 @@ const Title = styled.a`
   align-items: center;
   pointer-events: auto;
   justify-self: flex-start;
-  margin-right: 12px;
+  margin-right: 24px;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     justify-self: center;
   `};
   :hover {
     cursor: pointer;
+  }
+  + a {
+    margin-right: 12px;
   }
 `
 
@@ -323,9 +328,14 @@ export default function Header() {
         <UniBalanceContent setShowUniBalanceModal={setShowUniBalanceModal} />
       </Modal>
       <HeaderRow>
+        <Title href="https://wisetoken.net/">
+          <UniIcon>
+            <img width={'29px'} src={darkMode ? WiseLogoDark : WiseLogo} alt="wise logo" />
+          </UniIcon>
+        </Title>
         <Title href=".">
           <UniIcon>
-            <img width={'24px'} src={darkMode ? LogoDark : Logo} alt="logo" />
+            <img width={'24px'} src={darkMode ? LogoDark : Logo} alt="uniswap logo" />
           </UniIcon>
         </Title>
         <HeaderLinks>
