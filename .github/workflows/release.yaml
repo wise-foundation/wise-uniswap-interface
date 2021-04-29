@@ -15,7 +15,7 @@ jobs:
       changelog: ${{ steps.github_tag_action.outputs.changelog }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Bump version and push tag
         id: github_tag_action
@@ -31,12 +31,12 @@ jobs:
     if: ${{ needs.bump_version.outputs.new_tag != null }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
-      - uses: actions/setup-node@v1
+      - name: Set up node
+        uses: actions/setup-node@v2
         with:
-          node-version: '12'
-          always-auth: true
+          node-version: 14
           registry-url: https://registry.npmjs.org
 
       - name: Install dependencies
@@ -53,6 +53,14 @@ jobs:
           path: './build'
           pinata-api-key: ${{ secrets.PINATA_API_KEY }}
           pinata-secret-api-key: ${{ secrets.PINATA_API_SECRET_KEY }}
+
+      - name: Pin to Crust
+        uses: crustio/ipfs-crust-action@v1.0.8
+        continue-on-error: true
+        timeout-minutes: 2
+        with:
+          cid: ${{ steps.upload.outputs.hash }}
+          seeds: ${{ secrets.CRUST_SEEDS }}
 
       - name: Convert CIDv0 to CIDv1
         id: convert_cidv0
